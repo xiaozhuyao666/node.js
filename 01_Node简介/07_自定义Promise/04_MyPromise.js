@@ -106,7 +106,7 @@ mp.then((result) => {
   console.log("读取数据2", result);
   return "沙和尚"
 }).then((result)=>{
-  console.log("读取数据2", result);
+  console.log("读取数据3", result);
 })
 // const p = Promise.resolve(1);
 // p.then((result)=>{console.log("第一次读",result)});
