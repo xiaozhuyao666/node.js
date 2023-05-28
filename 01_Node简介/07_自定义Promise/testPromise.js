@@ -1,18 +1,19 @@
 const PROMISE_STATE = {
   PENDING: 0,
   FULFILLED: 1,
-  REJECT: 2,
+  REJECTED: 2,
 };
 class TestPromise {
   #result;
-  #callbacks = [];
   #state = PROMISE_STATE.PENDING;
+  #callbacks = [];
   constructor(executor) {
-    executor(this.#resolve, this.#reject); //此时executor是传入的回调函数，要调用回调函数
-    //构造函数中的this就是当前创建的实例，这里就是使用回调函数的实参调用私有函数#resolve和#reject
+    // 调用回调函数
+    executor(this.#resolve, this.#reject);
   }
+  // 用来存储成功数据
   #resolve = (value) => {
-    if (this.#state !== PROMISE_STATE.PENDING) return;
+    if (this.#state != PROMISE_STATE.PENDING) return;
     this.#result = value;
     this.#state = PROMISE_STATE.FULFILLED;
     queueMicrotask(() => {
@@ -21,7 +22,9 @@ class TestPromise {
       });
     });
   };
-  #reject() {}
+  // 用来存储拒绝数据
+  #reject = () => {};
+  // then方法
   then(onFulfilled, onRejected) {
     return new TestPromise((resolve, reject) => {
       if (this.#state === PROMISE_STATE.PENDING) {
@@ -36,21 +39,16 @@ class TestPromise {
     });
   }
 }
-// 这个回调函数是类中构造函数的实参
 const tp = new TestPromise((resolve, reject) => {
-  resolve("孙悟空");
+  resolve("哈哈");
 });
 // console.log(tp);
-// let r = tp.then((result) => {
-//   console.log(result);
-// });
-// console.log(r);
-tp.then((result) => {
-    console.log("读取数据1", result);
-    return "猪八戒";
-  }).then((result)=>{
-    console.log("读取数据2", result);
-    return "沙和尚"
-  }).then((result)=>{
-    console.log("读取数据3", result);
-  })
+tp.then((result, reason) => {
+    console.log(result);
+    return "嘻嘻";
+}).then((result,reason)=>{
+    console.log(result);
+    return "嘿嘿";
+}).then((result,reason)=>{
+    console.log(result);
+});
