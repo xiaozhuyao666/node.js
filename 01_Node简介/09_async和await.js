@@ -104,6 +104,7 @@ console.log(4); */
 //     await console.log(123);
 // }
 // fn8();
+// 立即执行函数
 (async() =>{
   await console.log("哈哈");
 })();
