@@ -19,10 +19,10 @@ const path = require("node:path");
 // )
 // 复制一个文件到指定目录
 // C:/Users/DZH/Desktop/狗头.jpg
-fs.readFile("C:/Users/DZH/Desktop/狗头.jpg")
-  .then((buffer) => {
-    return fs.appendFile(path.resolve(__dirname, "./dog.jpg"), buffer);
-  })
-  .then(() => {
-    console.log("操作结束");
-  });
+// fs.readFile("C:/Users/DZH/Desktop/狗头.jpg")
+//   .then((buffer) => {
+//     return fs.appendFile(path.resolve(__dirname, "./dog.jpg"), buffer);
+//   })
+//   .then(() => {
+//     console.log("操作结束");
+//   });
