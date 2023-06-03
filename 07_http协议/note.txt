@@ -50,7 +50,7 @@ TCP/IP 协议族
             -传输信息
     -HTTP协议就是应用层的协议
         用来规定客户端和服务器之间通信的报文格式的
-    -什么是报文？
+    -什么是报文(message)？
         -浏览器和服务器之间通信是基于请求和相应的
             -浏览器向服务器发送请求（request）
             -服务器向浏览器返回响应（response）
@@ -58,5 +58,164 @@ TCP/IP 协议族
                 服务器向浏览器返回响应，相当于服务器给浏览器回信
                 这个信在HTTP协议就是对这个报文的格式进行规定
             -而HTTP协议就是对这个报文的格式进行规定
-    
+        -服务器
+            -一个服务器的主要功能：
+                1.可以接收到浏览器发送的请求报文
+                2.可以向浏览器返回响应报文
+        -请求报文(request)
+            -客户端发送给服务器的报文称之为请求报文
+            -请求报文格式如下：
+                请求首行
+                请求头
+                空行
+                请求体
 
+                请求首行
+                    -请求首行就是请求报文的第一行
+                        GET /07_http%E5%8D%8F%E8%AE%AE/01_http%E5%8D%8F%E8%AE%AE.html?username=sunwukong HTTP/1.1
+                        第一部分GET表示发送请求的方式，GET表示发送的是GET请求
+                            现在常用的方式就是get和post请求
+                            get请求用来向服务器请求资源(没有请求体)
+                            post请求主要用来向服务器发送数据(有请求体)
+                        第二部分 /07_http%E5%8D%8F%E8%AE%AE/01_http%E5%8D%8F%E8%AE%AE.html?username=sunwukong
+                            表示请求资源的路径，
+                                ? 后边的内容叫做查询字符串
+                                查询字符串是一个名值对结构（与键值对相似），一个名字对应一个值，使用 = 连接，多个名值对使用$连接
+                                    username=sunwukong&password=123123
+                                get请求通过查询字符串将数据发送给服务器，
+                                    由于查询字符串会在浏览器地址栏中直接显示，
+                                        所以，它安全性较差
+                                        同时，由于url地址（就是浏览器地址栏）的长度有限制，所以get请求无法发送较大的数据
+                                post请求通过请求体来发送数据
+                                    -在chrome中通过 载荷（就是请求体的内容） 可以查看
+                                    post请求通过请求体来发送数据,无法在地址栏直接查看
+                                        所以，安全性较好。
+                                        请求体的大小没有限制，可以发送任意大小的数据
+                                    如果你需要向服务器发送数据，能用post尽量用post
+                                只要是http协议就不安全，因为它的信息是通过明文发送的，https相对来说比较安全，因为它的信息
+                                不是通过明文发送，加了一层套接字        
+                        第三部分 
+                            HTTP/1.1  协议的版本
+                    请求头
+                        - 请求头也是名值对（与键值对相似）结构，用来告诉我们浏览器的信息
+                        - 每一个请求头都有它的作用
+                            Accept  浏览器可以接收的文件类型
+                            Accept-Encoding  浏览器允许的压缩的编码
+                            Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7  前面是的语言，q表示优先级
+                            User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+                                用户代理，它是一段用来描述浏览器信息的字符串
+                            剩下的碰到哪个说哪个
+                        Connection: keep-alive
+                        Host: 127.0.0.1:5500
+                        Referer: http://127.0.0.1:5500/07_http%E5%8D%8F%E8%AE%AE/01_http%E5%8D%8F%E8%AE%AE.html
+                        Sec-Fetch-Dest: document
+                        Sec-Fetch-Mode: navigate
+                        Sec-Fetch-Site: same-origin
+                        Sec-Fetch-User: ?1
+                        Upgrade-Insecure-Requests: 1
+                        sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"
+                        sec-ch-ua-mobile: ?0
+                        sec-ch-ua-platform: "Windows"
+                        Support WebAssembly debugging
+                        Chrome DevTools supports WebAssembly debugging with DWARF information (using an extension).
+                        Better assertions in the Recorder
+                        Add assertions right during recording, with all runtime data available to you.
+                        Lighthouse 10.1.1
+                        Lighthouse now groups audit results by entity for better organization.
+                空行
+                    -用来分隔请求头和请求体
+                请求体
+                    —post请求通过请求体发送数据
+                
+                   
+
+                报文内容：在浏览器单击检查，找到网络选项卡，点击对应的文件，点击请求标头，查看源代码中查看
+                GET /07_http%E5%8D%8F%E8%AE%AE/01_http%E5%8D%8F%E8%AE%AE.html?username=sunwukong HTTP/1.1
+                Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7
+                Accept-Encoding: gzip, deflate, br
+                Accept-Language: en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7
+                Connection: keep-alive
+                Host: 127.0.0.1:5500
+                Referer: http://127.0.0.1:5500/07_http%E5%8D%8F%E8%AE%AE/01_http%E5%8D%8F%E8%AE%AE.html
+                Sec-Fetch-Dest: document
+                Sec-Fetch-Mode: navigate
+                Sec-Fetch-Site: same-origin
+                Sec-Fetch-User: ?1
+                Upgrade-Insecure-Requests: 1
+                User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36
+                sec-ch-ua: "Not.A/Brand";v="8", "Chromium";v="114", "Google Chrome";v="114"
+                sec-ch-ua-mobile: ?0
+                sec-ch-ua-platform: "Windows"
+                Support WebAssembly debugging
+                Chrome DevTools supports WebAssembly debugging with DWARF information (using an extension).
+                Better assertions in the Recorder
+                Add assertions right during recording, with all runtime data available to you.
+                Lighthouse 10.1.1
+                Lighthouse now groups audit results by entity for better organization.
+
+            网页、css、js、图片这些资源会作为响应报文中的哪一部分发送？
+                响应体部分
+
+            -响应报文格式如下：
+                响应首行
+                响应头
+                空行
+                响应体
+
+
+                响应首行
+                    HTTP/1.1 304 Not Modified
+                    协议版本  响应状态码 对响应状态码的描述
+                        -响应状态码的规则
+                            1xx 请求处理中
+                            2xx 表示成功
+                            3xx 表示请求的重定向
+                            4xx 表示客户端错误
+                            5xx 表示服务器错误    
+                响应头
+                    -响应头也是一个一个的名值对结构，用来告诉浏览器相应的信息
+                    -Content-Type: text/html;charset = UTF-8   用来描述响应体的类型
+                    -Content-Length: 2017          -用来描述响应体的大小
+                    Vary: Origin
+                    Access-Control-Allow-Credentials: true
+                    Accept-Ranges: bytes
+                    Cache-Control: public, max-age=0
+                    Last-Modified: Sat, 03 Jun 2023 01:41:48 GMT
+                    ETag: W/"1ea-1887eeaf820"
+                    Date: Sat, 03 Jun 2023 02:13:28 GMT
+                    Connection: keep-alive
+                空行
+                    -空行用来分隔响应头和响应体
+                响应体
+                    - 响应体就是服务器返回给客户端的内容
+
+                    <!DOCTYPE html>
+                    <html lang="en">
+                    <head>
+                        <meta charset="UTF-8" />
+                        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+                        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+                        <title>http协议</title>
+                    </head>
+                    <body>
+                        <form action="./02_target.html" method="post">
+                        <input type="text" name="username" />
+                        <br />
+                        <input type="password" name="password" />
+                        <button>提交</button>
+                        </form>
+                    </body>
+                    </html>
+
+            
+            响应报文：
+            报文内容：在浏览器单击检查，找到网络选项卡，点击对应的文件，点击请求标头，查看源代码中查看
+                HTTP/1.1 304 Not Modified
+                Vary: Origin
+                Access-Control-Allow-Credentials: true
+                Accept-Ranges: bytes
+                Cache-Control: public, max-age=0
+                Last-Modified: Sat, 03 Jun 2023 01:41:48 GMT
+                ETag: W/"1ea-1887eeaf820"
+                Date: Sat, 03 Jun 2023 02:13:28 GMT
+                Connection: keep-alive
